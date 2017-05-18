@@ -31,9 +31,16 @@ public class SimpleCarController : MonoBehaviour {
         visualWheel.transform.rotation = rotation;
     }
 
+    public void Update()
+    {
+
+    }
+
     public void FixedUpdate() {
-        float motor = maxMotorTorque * -Input.GetAxis("Trigger");
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+        float motor = maxMotorTorque * (-Input.GetAxis("Accelerator") + 1);
+        float steering = maxSteeringAngle * Input.GetAxis("Wheel");
+        Debug.Log(Input.GetAxis("Wheel") + "    " + steering);
+             
         bool breaking = Input.GetAxis("Jump") > 0;
         foreach (AxleInfo axleInfo in axleInfos) {
             if (axleInfo.steering) {
@@ -55,4 +62,6 @@ public class SimpleCarController : MonoBehaviour {
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
         }
     }
+
+    
 }
